@@ -1,41 +1,34 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useEffect, useState } from 'react';
+import {Movie, Response} from '../utils/interfaces';
+
+const API_KEY = '450a2d1267e0aaf9403bcd16120a9e62';
 
 const Home: NextPage = () => {
+  const [list, setList] = useState<Movie[]>([]);
+
+  useEffect(()=>{
+    (async ()=>{
+      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
+      const data: Response<Movie> = await res.json();
+      setList(data.results);
+    })();
+  },[]);
+
   return (
-    <div className='root'>
-      NextJS
-      <h1 className='title'>Test 입니다.</h1>
-      <ul className='box'>
-        <li>
-          하나
-          <span className='num'>1</span>
-        </li>
-        <li>
-          둘
-          <span className='num'>2</span>
-        </li>
-        <li>
-          셋
-          <span className='num'>3</span>
-        </li>
-      </ul>
+    <div className='home'>
+      {list.map(mv => (
+        <div key={mv.id}>{mv.original_title}</div>
+      ))}
       <style jsx>{`
-        .title {
-          color: blue;
-        }
-        .box {
-          border: 1px solid green;
-          li {
-            margin: 5px 0;
-            background-color: yellow;
-          }
+        .home {
+
         }
       `}</style>
     </div>
   )
 }
 
-export default Home
+
+
+export default Home;
