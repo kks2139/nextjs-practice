@@ -3,21 +3,31 @@ import {GiRoundStar} from 'react-icons/gi';
 import {GoPencil} from 'react-icons/go';
 import {FcCalendar} from 'react-icons/fc';
 import Tooltip from './Tooltip';
+import { useEffect, useRef } from 'react';
 
 interface Props {
     movie: Movie
+    moved?: number
 }
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const PADDING = 5;
+const WIDTH = 200;
 
-function MovieCard({movie}: Props){
+function MovieCard({movie, moved=0}: Props){
     const tooltipText = `Overview : 
     ${movie.overview}`;
+    const liRef = useRef<HTMLLIElement>(null);
+    const position = moved * (2 * PADDING + WIDTH);
 
+    useEffect(()=>{
+        // liRef.current!.transform = moved
+    }, [moved]);
+    
     return (
-        <li>
+        <li className='movie-wrapper' ref={liRef} style={{transform: `translateX(-${position})`}}>
             <Tooltip text={tooltipText}>
-                <div className="img-box">
+                <div className="movie-box">
                     <img src={IMG_BASE_URL + movie.poster_path || ''} alt={movie.original_title}></img>
                     <div className="info">
                         <h4 className="title">{movie.original_title}</h4>
@@ -37,76 +47,79 @@ function MovieCard({movie}: Props){
                         </div>
                     </div>
                 </div>
-                <style jsx>{`
-                    .img-box {
-                        position: relative;
-                        width: 200px;
-                        height: 420px;
-                        border-radius: 10px;
-                        overflow: hidden;
-                        box-shadow: -15px -15px 40px -35px black, 10px 10px 40px -35px black;
-                        margin: 5px;
-                        transition: .2s;
-                        cursor: pointer;
-                        &:hover {
-                            transform: translateY(-6px);
-                            .overview {
-                                display: block;
-                            }
-                        }
-                    }
-                    img {
-                        width: 200px;
-                        height: 300px;
-                        object-fit: cover;
-                    }
-                    .info {
-                        padding: 10px;
-                        .title {
-                            margin-bottom: 5px;
-                        }
-                    }
-                    .gray {
-                        color: gray;
-                    }
-                    .font-small {
-                        font-size: 14px;
-                    }
-                    .foot {
-                        position: absolute;
-                        bottom: 12px;
-                        display: flex;
-                        justify-content: space-between; 
-                        width: calc(100% - 30px);
-                        span {
-                            margin-left: 5px;
-                        }
-                    }
-                    .overview {
-                        display: none;
-                        position: absolute;
-                        width: 300px;
-                        height: 200px;
-                        background-color: white;
-                        left: 50%;
-                        top: 50%;
-                        box-shadow: 0 0 40px -15px black;
-                        border-radius: 10px;
-                        padding: 20px;
-                        animation: showup .5s forwards;
-                    }
-                    @keyframes showup {
-                        from {
-                            opacity: 0;
-                            transform: translate(-50%, 0%);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translate(-50%, -30%);
-                        }
-                    }
-                `}</style>
             </Tooltip>
+            <style jsx>{`
+                .movie-wrapper {
+                    transition: .2s;
+                    padding: ${PADDING}px;
+                }
+                .movie-box {
+                    position: relative;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    width: ${WIDTH}px;
+                    height: 420px;
+                    box-shadow: 0 0 30px -15px black;
+                    transition: .2s;
+                    cursor: pointer;
+                    &:hover {
+                        transform: translateY(-8px);
+                        .overview {
+                            display: block;
+                        }
+                    }
+                }
+                img {
+                    width: 200px;
+                    height: 300px;
+                    object-fit: cover;
+                }
+                .info {
+                    padding: 10px;
+                    .title {
+                        margin-bottom: 5px;
+                    }
+                }
+                .gray {
+                    color: gray;
+                }
+                .font-small {
+                    font-size: 14px;
+                }
+                .foot {
+                    position: absolute;
+                    bottom: 12px;
+                    display: flex;
+                    justify-content: space-between; 
+                    width: calc(100% - 30px);
+                    span {
+                        margin-left: 5px;
+                    }
+                }
+                .overview {
+                    display: none;
+                    position: absolute;
+                    width: 300px;
+                    height: 200px;
+                    background-color: white;
+                    left: 50%;
+                    top: 50%;
+                    box-shadow: 0 0 40px -15px black;
+                    border-radius: 10px;
+                    padding: 20px;
+                    animation: showup .5s forwards;
+                }
+                @keyframes showup {
+                    from {
+                        opacity: 0;
+                        transform: translate(-50%, 0%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translate(-50%, -30%);
+                    }
+                }
+            `}</style>
         </li>
     );
 }

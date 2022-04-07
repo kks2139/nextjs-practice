@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 import MovieCard from '../components/MovieCard';
+import Panel from '../components/Panel';
 import Slider from '../components/Slider';
 import {Movie, Response} from '../utils/interfaces';
 
@@ -14,13 +15,18 @@ interface Props {
 function Home({popular, upcoming}: Props){
   return (
     <div className='home'>
-      <section className='section'>
+      <div className='title-box'>
+        <h1 className='tit'>MOVIE INFORMATION</h1>
+        <h2 className='sub-tit'>Look for information about the movie information !</h2>
+      </div>
+
+      <Panel title='Most Popular'>
         <Slider>
           {popular.map(mv => (
             <MovieCard key={mv.id} movie={mv}/>
           ))}
         </Slider>
-      </section>
+      </Panel>
 
 
       {/* <ul className='movie-list'>
@@ -36,6 +42,18 @@ function Home({popular, upcoming}: Props){
         ))}
       </ul> */}
       <style jsx>{`
+        .title-box {
+          text-align: center;
+          margin: 20px 0 50px 0;
+          .tit {
+            font-size: 40px;
+          }
+          .sub-tit {
+            color: gray;
+            font-size: 20px;
+            font-weight: normal;
+          }
+        }
         .movie-list {
           display: flex;
           width: 900px;

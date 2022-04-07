@@ -33,7 +33,6 @@ function Header(){
                     position: fixed;
                     z-index: 100;
                     width: 100%;
-                    /* height: 40px; */
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -46,11 +45,11 @@ function Header(){
                 }
                 li {
                     position: relative;
-                    padding: 10px 15px;
+                    padding: 15px 15px;
                 }
                 a {
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 18px;
                     transition: .2s;
                     &:hover {
                         color: var(--blue-1);
