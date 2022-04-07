@@ -13,17 +13,21 @@ function Header(){
             <style jsx>{`
                 .header {
                     position: fixed;
+                    z-index: 100;
+                    width: 100%;
                     height: 50px;
                     display: flex;
+                    justify-content: center;
                     align-items: center;
                     box-shadow: 0 5px 50px -20px black;
                     padding: 0 20px;
                     border-radius: 10px;
+                    background-color: white;
                 }
                 a {
                     font-weight: bold;
                     font-size: 16px;
-                    margin: 0 20px;
+                    margin: 0 10px;
                     transition: .2s;
                     &:hover {
                         color: red;

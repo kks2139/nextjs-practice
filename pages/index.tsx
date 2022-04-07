@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
+import MovieCard from '../components/MovieCard';
 import {Movie, Response} from '../utils/interfaces';
 
 const API_KEY = '450a2d1267e0aaf9403bcd16120a9e62';
@@ -21,12 +22,17 @@ function Home({results}: Props){
 
   return (
     <div className='home'>
-      {results.map(mv => (
-        <div key={mv.id}>{mv.original_title}</div>
-      ))}
+      <ul className='movie-list'>
+        {results.map(mv => (
+          <MovieCard key={mv.id} movie={mv}/>
+        ))}
+      </ul>
       <style jsx>{`
-        .home {
-
+        .movie-list {
+          display: flex;
+          width: 900px;
+          justify-content: center;
+          flex-wrap: wrap;
         }
       `}</style>
     </div>
