@@ -16,7 +16,6 @@ function Layout({children}: Props){
                     height: 100vh;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
                 } 
                 main {
                     margin-top: 80px;
