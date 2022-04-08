@@ -3,29 +3,22 @@ import {GiRoundStar} from 'react-icons/gi';
 import {GoPencil} from 'react-icons/go';
 import {FcCalendar} from 'react-icons/fc';
 import Tooltip from './Tooltip';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import {IMG_BASE_URL} from '../utils/api';
 
 interface Props {
     movie: Movie
-    moved?: number
 }
 
-const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 const PADDING = 5;
 const WIDTH = 200;
 
-function MovieCard({movie, moved=0}: Props){
+function MovieCard({movie}: Props){
     const tooltipText = `Overview : 
     ${movie.overview}`;
-    const liRef = useRef<HTMLLIElement>(null);
-    const position = moved * (2 * PADDING + WIDTH);
 
-    useEffect(()=>{
-        // liRef.current!.transform = moved
-    }, [moved]);
-    
     return (
-        <li className='movie-wrapper' ref={liRef} style={{transform: `translateX(-${position})`}}>
+        <div className='movie-wrapper'>
             <Tooltip text={tooltipText}>
                 <div className="movie-box">
                     <img src={IMG_BASE_URL + movie.poster_path || ''} alt={movie.original_title}></img>
@@ -120,7 +113,7 @@ function MovieCard({movie, moved=0}: Props){
                     }
                 }
             `}</style>
-        </li>
+        </div>
     );
 }
 

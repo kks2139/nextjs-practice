@@ -10,7 +10,7 @@ function Panel({title, children}: Props){
             {children}
             <style jsx>{`
                 .title {
-                    margin: 0 0 0 60px;
+                    margin: 30px 0 0 60px;
                     font-size: 30px;
                 }
             `}</style>

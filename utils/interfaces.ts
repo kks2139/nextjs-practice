@@ -21,3 +21,27 @@ export interface Movie {
     video: boolean
     vote_average: number
 }
+
+export interface Genre {
+    id: number
+    name: string
+}
+
+export interface MovieDetail extends Movie {
+    belongs_to_collection: null | object
+    budget: number
+    genres: Genre[]
+    homepage: string
+    imdb_id: number
+    production_companies: {name: string, id: number, logo_path: string, origin_country: string}[]
+    production_countries: {iso_3166_1: string, name: string}[]
+    revenue: number
+    runtime: number | null
+    spoken_languages: {iso_639_1: string, name: string}[]
+    status: string
+    tagline: string
+}
+
+export interface Constraint<Data> {
+    [key: string]: Data
+}

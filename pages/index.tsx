@@ -1,11 +1,12 @@
 import type { NextPage } from 'next'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import MovieCard from '../components/MovieCard';
 import Panel from '../components/Panel';
 import Slider from '../components/Slider';
+import { request } from '../utils/api';
 import {Movie, Response} from '../utils/interfaces';
-
-const API_KEY = '450a2d1267e0aaf9403bcd16120a9e62';
 
 interface Props {
   popular: Movie[]
@@ -13,6 +14,8 @@ interface Props {
 }
 
 function Home({popular, upcoming}: Props){
+  const router = useRouter();
+
   return (
     <div className='home'>
       <div className='title-box'>
@@ -23,7 +26,23 @@ function Home({popular, upcoming}: Props){
       <Panel title='Most Popular'>
         <Slider>
           {popular.map(mv => (
-            <MovieCard key={mv.id} movie={mv}/>
+            <Link href={`movie/${mv.id}`}>
+              <a>
+                <MovieCard key={mv.id} movie={mv}/>
+              </a>
+            </Link>
+          ))}
+        </Slider>
+      </Panel>
+      
+      <Panel title='Upcomings'>
+        <Slider>
+          {upcoming.map(mv => (
+            <Link href={`movie/${mv.id}`}>
+              <a>
+                <MovieCard key={mv.id} movie={mv}/>
+              </a>
+            </Link>
           ))}
         </Slider>
       </Panel>
@@ -71,15 +90,13 @@ function Home({popular, upcoming}: Props){
 }
 
 export async function getServerSideProps(){
-  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`);
-  const res2 = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`);
-  const data: Response<Movie> = await res.json();
-  const data2: Response<Movie> = await res2.json();
+  const popular = await request<Movie[]>("getPopularList");
+  const upcoming = await request<Movie[]>("getUpcomingList");
 
   return {
     props: {
-      popular: data.results,
-      upcoming: data2.results,
+      popular,
+      upcoming,
     }
   }
 }

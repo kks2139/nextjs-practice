@@ -6,7 +6,7 @@ interface Props {
     text: string
 }
 
-const TOOLTIP_WIDTH = 280;
+const TOOLTIP_WIDTH = 250;
 
 function Tooltip({children ,text}: Props){
     const divRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ function Tooltip({children ,text}: Props){
     const onMouseMove = (e: React.MouseEvent)=>{
         const {pageX, pageY} = e;
         const x = pageX - (TOOLTIP_WIDTH / 2);
-        const y = pageY + document.documentElement.scrollTop + 25;
+        const y = pageY + 25;// + (document.documentElement.scrollTop + 25);
     
         divRef.current!.style.left = x + 'px';
         divRef.current!.style.top = y + 'px';
