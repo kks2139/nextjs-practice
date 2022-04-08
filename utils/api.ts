@@ -17,9 +17,17 @@ export async function request<Data>(apiName: string, param?: string) {
             url: `https://api.themoviedb.org/3/movie/${param}?api_key=${API_KEY}`,
             resultName: ''
         },
+        getReviewList: {
+            url: `https://api.themoviedb.org/3/movie/${param}/reviews?api_key=${API_KEY}&language=en-US&page=1`,
+            resultName: 'results'
+        },
         getGenre: {
             url: `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`,
             resultName: 'genres'
+        },
+        getSimilarList: {
+            url: `https://api.themoviedb.org/3/movie/${param}/similar?api_key=${API_KEY}`,
+            resultName: 'results'
         },
     }
     if(!apiMap[apiName]){

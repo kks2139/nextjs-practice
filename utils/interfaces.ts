@@ -45,3 +45,20 @@ export interface MovieDetail extends Movie {
 export interface Constraint<Data> {
     [key: string]: Data
 }
+
+export interface Reviewer {
+    name: string
+    username: string
+    avatar_path: string | null
+    rating: number | null
+}
+
+export interface Review {
+    author: string
+    author_details: Reviewer
+    content: number
+    created_at: number
+    id: number
+    updated_at: number
+    url: number
+}
