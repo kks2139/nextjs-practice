@@ -31,6 +31,7 @@ export async function request<Data>(apiName: string, param?: string) {
         },
     }
     if(!apiMap[apiName]){
+        console.error("잘못된 이름입니다.");
         return null;
     }
 
@@ -45,7 +46,7 @@ export async function request<Data>(apiName: string, param?: string) {
             return data as Data;
         }
     }else{
-        alert("요청중 문제가 발생하였습니다.");
+        console.error("요청중 문제가 발생하였습니다.");
         return null;
     }
 }
