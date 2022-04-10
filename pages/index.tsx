@@ -26,9 +26,9 @@ function Home({popular, upcoming}: Props){
       <Panel title='Most Popular'>
         <Slider>
           {popular.map(mv => (
-            <Link href={`movie/${mv.id}`}>
+            <Link key={mv.id} href={`movie/${mv.id}`}>
               <a>
-                <MovieCard key={mv.id} movie={mv}/>
+                <MovieCard movie={mv}/>
               </a>
             </Link>
           ))}
@@ -38,9 +38,9 @@ function Home({popular, upcoming}: Props){
       <Panel title='Upcomings'>
         <Slider>
           {upcoming.map(mv => (
-            <Link href={`movie/${mv.id}`}>
+            <Link key={mv.id} href={`movie/${mv.id}`}>
               <a>
-                <MovieCard key={mv.id} movie={mv}/>
+                <MovieCard movie={mv}/>
               </a>
             </Link>
           ))}
